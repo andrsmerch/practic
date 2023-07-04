@@ -31,8 +31,31 @@ int rand_massive(int arr[], int n) {
     return 0;
 }
 
+int mark_rand_file(int arr[], int n) {
+    // запись рандом массива в файл
+    int i;
+    FILE* filer = fopen("input.txt", "w");
+    if (filer != NULL) {
+        for (i = 0; i < n; i++) {
+            fprintf(filer, "%d \n", arr[i]);
+        }
+        fclose(filer);
+    }
+    return 0;
 
-
+}
+int mark_sort_file(int arr[], int n) {
+    // Запись сортированного массива в файл
+    int i;
+    FILE* file = fopen("output.txt", "w");
+    if (file != NULL) {
+        for (i = 0; i < n; i++) {
+            fprintf(file, "%d \n", arr[i]);
+        }
+        fclose(file);
+    }
+    return 0;
+}
 
 int main() {
     int* arr;  // указатель на int для массива
@@ -52,12 +75,19 @@ int main() {
     // Заполнение массива случайными числами
     rand_massive(arr, n);
 
+    // запись рандом массива в файл
+    mark_rand_file(arr, n);
+
     // Сортировка массива
     timer = clock();
     selectionSort(arr, n);
     timer = clock() - timer;
     printf("Time sort = ");
     printf("%f", (double)timer / CLOCKS_PER_SEC);
-с
+
+
+    // Запись сортированного массива в файл
+    mark_sort_file(arr, n);
 
     return 0;
+}
